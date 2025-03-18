@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://de8ksdpqajo65"]
+
+[ext_resource type="Script" uid="uid://deel4mukend0p" path="res://trayectoria.gd" id="1_7kxud"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7kxud"]
+
+[node name="Trayectoria" type="Node3D"]
+script = ExtResource("1_7kxud")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_7kxud")

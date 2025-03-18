@@ -1,0 +1,168 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0ikutqif3tot"]
+
+[ext_resource type="Script" uid="uid://bhy3xw8et47tn" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://de8ksdpqajo65" path="res://trayectoria.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bae4uwc31qjgo" path="res://area.glb" id="2_h2yge"]
+[ext_resource type="Material" uid="uid://bwiq7imcpbl83" path="res://line_material.tres" id="3_1bvp3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_0xm2m"]
+sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 1
+background_color = Color(0.114897, 0.114897, 0.114897, 1)
+sky = SubResource("Sky_0xm2m")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2yge"]
+material = ExtResource("3_1bvp3")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfoLavel" type="Label" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -39.0
+offset_right = 654.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "Esta simulación busca responder la pregunta ¿Con qué ángulo se realizó el disparo?"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.5
+offset_right = 34.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="VelocidadLabel" type="Label" parent="Control/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0 Km/h"
+
+[node name="HoraLabel" type="Label" parent="Control/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "17:18:00.00"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 2
+offset_left = 27.0
+offset_top = 23.0
+offset_right = 187.0
+offset_bottom = 171.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Ángulo de disparo"
+
+[node name="AnguloLabel" type="Label" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "45"
+
+[node name="AnguloSlider" type="HSlider" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 45.0
+value = 45.0
+
+[node name="ResetButton" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "1º"
+
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="CalcularButton" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Calcular trayectoria"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.507839, 0.746039, -0.430726, 2.78059e-08, 0.5, 0.866025, 0.861452, -0.439801, 0.253919, 0, 0, 0)
+
+[node name="CameraTrack" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.441956)
+
+[node name="Marker3D" type="Marker3D" parent="CameraTrack"]
+transform = Transform3D(0.997605, 0.0691645, 0, -0.0691645, 0.997605, 0, 0, 0, 1, 0, 7.96166, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraTrack/Marker3D"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -43.1481, 0, -1.88607e-06)
+fov = 43.1
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245333, -43.5297)
+visible = false
+size = Vector3(100, 0.509464, 100)
+
+[node name="Oficial" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841947, 0)
+visible = false
+size = Vector3(0.352539, 1.65515, 0.326172)
+
+[node name="Fotografo" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.437563, -52)
+visible = false
+size = Vector3(0.352539, 0.846985, 0.326172)
+
+[node name="area" parent="Node3D" instance=ExtResource("2_h2yge")]
+
+[node name="Label3D" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.57843, -52.965)
+pixel_size = 0.0007
+billboard = 1
+fixed_size = true
+modulate = Color(0.459, 0.7718, 0.85, 1)
+text = "Pablo Grillo"
+outline_size = 0
+
+[node name="Label3D2" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.73943, -0.171366)
+pixel_size = 0.0007
+billboard = 1
+fixed_size = true
+modulate = Color(0.84, 0.693, 0.42, 1)
+text = "Cabo G.
+Gendarmería Nacional"
+outline_size = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.43554, 1.33355, 0)
+mesh = SubResource("BoxMesh_h2yge")
+
+[node name="Trayectoria" parent="." instance=ExtResource("2_0xm2m")]
+angulo = 3.0
+
+[connection signal="value_changed" from="Control/VBoxContainer/AnguloSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="Control/VBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/CalcularButton" to="." method="_on_calcular_button_pressed"]
